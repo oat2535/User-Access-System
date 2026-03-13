@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login - User Access System</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <style>
+        .login-image-custom {
+            background: url('{% static "img/login_background.png" %}') center center no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            position: relative;
+        }
+        .login-panel-right {
+            background-color: #daeaf6; /* Lighter blue */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .btn-rounded-custom {
+            border-radius: 50px !important;
+            padding: 12px;
+            font-size: 1rem;
+        }
+        .form-label-custom {
+            color: #4e5d6c; /* Darker grey blue for visibility */
+            font-weight: 700;
+        }
+        h1.welcome-text {
+            color: #2c3e50;
+            font-weight: 800 !important;
+        }
+    </style>
+</head>
+
+<body style="background-color: #daeaf6;">
+
+    <div class="container-fluid p-0">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center h-100vh align-items-center no-gutters">
+
+            <div class="col-lg-8 d-none d-lg-block login-image-custom">
+                <!-- Image Column -->
+                <div style="position: absolute; top: 50px; left: 0; width: 100%; text-align: center;">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" style="max-height: 120px;">
+                </div>
+            </div>
+
+            <div class="col-lg-4 login-panel-right">
+                <div class="p-5 w-100">
+                    <div class="text-center">
+                        <h1 class="h4 mb-4 welcome-text">ยินดีต้อนรับเข้าสู่ระบบ</h1>
+                        <p class="mb-4 text-dark font-weight-bold">User Access Request System</p>
+                    </div>
+                    <form class="user" method="post">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                Username หรือ Password ไม่ถูกต้อง
+                            </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            <label class="small mb-1 form-label-custom" for="username">Username</label>
+                            <input type="text" name="username" class="form-control form-control-user"
+                                id="username" aria-describedby="emailHelp"
+                                placeholder="Enter Username...">
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1 form-label-custom" for="password">Password</label>
+                            <input type="password" name="password" class="form-control form-control-user"
+                                id="password" placeholder="Password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-rounded-custom font-weight-bold shadow-sm" style="background-color: #0088cc; border-color: #0088cc;">
+                            เข้าสู่ระบบ (Login)
+                        </button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <span class="small text-muted font-weight-bold">Or</span>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a class="btn btn-success btn-block btn-rounded-custom font-weight-bold shadow-sm" href="{% url 'public_create_request' %}">
+                            <i class="fas fa-user-plus mr-2"></i> ขอสิทธิ์ใช้งาน (Request Access)
+                        </a>
+                    </div>
+                    <div class="text-center mt-5">
+                        <span class="small text-gray-600">Copyright &copy; User Access System 2026</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+</body>
+
+</html>

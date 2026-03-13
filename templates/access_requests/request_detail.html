@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Request Details - User Access System{% endblock %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Request #{{ request_obj.pk }}</h1>
+    <a href="{% url 'request_list' %}" class="btn btn-secondary shadow-sm">
+        <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Request List
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Details</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Status:</div>
+                    <div class="col-md-9">
+                        {% if request_obj.status == 'approved' %}
+                            <span class="badge badge-success">Approved</span>
+                        {% elif request_obj.status == 'rejected' %}
+                            <span class="badge badge-danger">Rejected</span>
+                        {% else %}
+                            <span class="badge badge-warning">Pending</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Employee ID:</div>
+                    <div class="col-md-9">{{ request_obj.employee_id }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Fullname (TH):</div>
+                    <div class="col-md-9">{{ request_obj.prefix_th }} {{ request_obj.firstname_th }} {{ request_obj.lastname_th }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Fullname (EN):</div>
+                    <div class="col-md-9">{{ request_obj.prefix_en }} {{ request_obj.firstname_en }} {{ request_obj.lastname_en }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Email:</div>
+                    <div class="col-md-9">{{ request_obj.email }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Department/Pos:</div>
+                    <div class="col-md-9">{{ request_obj.department }} / {{ request_obj.position }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Systems:</div>
+                    <div class="col-md-9">
+                        {% for sys in request_obj.systems.all %}
+                            <span class="badge badge-primary">{{ sys.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Reason:</div>
+                    <div class="col-md-9">{{ request_obj.reason }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Requested On:</div>
+                    <div class="col-md-9">{{ request_obj.created_at }}</div>
+                </div>
+
+                {% if request_obj.manager_comment %}
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Manager Comment:</div>
+                    <div class="col-md-9">{{ request_obj.manager_comment }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        {% if request_obj.system.description %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">System Information</h6>
+            </div>
+            <div class="card-body">
+                {{ request_obj.system.description|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
